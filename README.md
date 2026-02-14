@@ -1,17 +1,51 @@
-# React + Vite
+# Bokningssystem — Frisörsalong
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ett webbaserat bokningssystem för frisörsalonger (och andra tjänsteföretag) där kunder kan boka, ändra och avboka tider online. Systemet har tre roller: **kund**, **personal** och **admin**.
 
-Currently, two official plugins are available:
+## Teknikstack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Område        | Teknik                   |
+| ------------- | ------------------------ |
+| Frontend      | Next.js 16 (App Router)  |
+| Styling       | Tailwind CSS + shadcn/ui |
+| Autentisering | Auth.js / next-auth v5   |
+| Backend/API   | Next.js Route Handlers   |
+| Databas       | MongoDB Atlas (Mongoose) |
+| Deploy        | Vercel                   |
 
-## React Compiler
+## Kom igång
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Installera beroenden
+npm install
 
-## Expanding the ESLint configuration
+# Starta utvecklingsservern
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# bookingsystem
+Öppna [http://localhost:3000](http://localhost:3000) i din webbläsare.
+
+## Projektstruktur
+
+```
+src/
+├── app/            # Next.js App Router (sidor, layouts, API-routes)
+│   ├── api/        # Route Handlers (backend-API)
+│   └── ...         # Sidor och layouts
+├── components/     # Återanvändbara React-komponenter (shadcn/ui)
+└── lib/            # Hjälpfunktioner, databasanslutning, utils
+```
+
+## Miljövariabler
+
+Skapa en `.env.local`-fil i roten:
+
+```env
+MONGODB_URI=din_mongodb_atlas_uri
+NEXTAUTH_SECRET=din_hemliga_nyckel
+NEXTAUTH_URL=http://localhost:3000
+```
+
+## Examensarbete
+
+Se [examen_PM.md](examen_PM.md) för fullständig projektbeskrivning, kravspecifikation och tidsplan.
