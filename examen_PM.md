@@ -64,14 +64,14 @@ Målet är att leverera en fungerande MVP (Minimum Viable Product) av ett boknin
 
 ### Tidsplan (6 veckor)
 
-| Vecka | Fokus                                                                                       |
-| ----- | ------------------------------------------------------------------------------------------- |
+| Vecka | Fokus                                                                                                                 |
+| ----- | --------------------------------------------------------------------------------------------------------------------- |
 | 1     | Projektsetup: Vite + React, React Router, Firebase Auth, AWS Lambda + DynamoDB, Serverless Framework, GitHub Projects |
-| 2     | Adminsida: CRUD för tjänster, hantera personal och öppettider                               |
-| 3     | Personalsida: eget schema, se sina bokningar                                                |
-| 4     | Kundsida: bokningsflöde (välj tjänst → personal → datum/tid → bekräfta)                     |
-| 5     | Kalendervy, dubbelbokningsskydd, responsiv design                                           |
-| 6     | Polish, bugfixar, deploy frontend till Netlify + backend till AWS Lambda, förbereda presentation                                |
+| 2     | Adminsida: CRUD för tjänster, hantera personal och öppettider                                                         |
+| 3     | Personalsida: eget schema, se sina bokningar                                                                          |
+| 4     | Kundsida: bokningsflöde (välj tjänst → personal → datum/tid → bekräfta)                                               |
+| 5     | Kalendervy, dubbelbokningsskydd, responsiv design                                                                     |
+| 6     | Polish, bugfixar, deploy frontend till Netlify + backend till AWS Lambda, förbereda presentation                      |
 
 ### Arbetssätt
 
@@ -82,16 +82,16 @@ Målet är att leverera en fungerande MVP (Minimum Viable Product) av ett boknin
 
 ## Tekniker
 
-| Område            | Teknik                                                             |
-| ----------------- | ------------------------------------------------------------------ |
-| Frontend          | Vite + React 19                                                    |
-| Routing           | React Router v7                                                    |
-| Styling           | Tailwind CSS v4                                                    |
-| Autentisering     | Firebase Auth (med rollhantering)                                  |
-| Backend/API       | AWS Lambda + API Gateway (Serverless Framework)                    |
-| Databas           | AWS DynamoDB                                                       |
-| Deploy            | Netlify (frontend) + AWS Lambda (backend)                          |
-| Versionshantering | Git + GitHub                                                       |
+| Område            | Teknik                                          |
+| ----------------- | ----------------------------------------------- |
+| Frontend          | Vite + React 19                                 |
+| Routing           | React Router v7                                 |
+| Styling           | Tailwind CSS v4                                 |
+| Autentisering     | Firebase Auth (med rollhantering)               |
+| Backend/API       | AWS Lambda + API Gateway (Serverless Framework) |
+| Databas           | AWS DynamoDB                                    |
+| Deploy            | Netlify (frontend) + AWS Lambda (backend)       |
+| Versionshantering | Git + GitHub                                    |
 
 **Motivering:**
 

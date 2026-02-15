@@ -4,15 +4,15 @@ Ett webbaserat bokningssystem för frisörsalonger (och andra tjänsteföretag) 
 
 ## Teknikstack
 
-| Område | Teknik |
-|---|---|
-| Frontend | Vite + React 19 |
-| Routing | React Router v7 |
-| Styling | Tailwind CSS v4 |
-| Autentisering | Firebase Auth |
-| Backend/API | AWS Lambda + API Gateway |
-| Databas | AWS DynamoDB |
-| Deploy | Netlify (frontend) + AWS Lambda (backend) |
+| Område        | Teknik                                    |
+| ------------- | ----------------------------------------- |
+| Frontend      | Vite + React 19                           |
+| Routing       | React Router v7                           |
+| Styling       | Tailwind CSS v4                           |
+| Autentisering | Firebase Auth                             |
+| Backend/API   | AWS Lambda + API Gateway                  |
+| Databas       | AWS DynamoDB                              |
+| Deploy        | Netlify (frontend) + AWS Lambda (backend) |
 
 ## Kom igång
 

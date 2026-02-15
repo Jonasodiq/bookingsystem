@@ -7,6 +7,8 @@ provider:
   runtime: nodejs20.x
   region: eu-north-1
   stage: ${opt:stage, 'dev'}
+  deploymentBucket:
+    name: bookingsystem-serverless-deploys
   environment:
     DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
   iamRoleStatements:
@@ -59,7 +61,7 @@ functions:
 
   # Exempel: Ta bort bokning
   deleteBooking:
-    handler: backend/handlers/bookings.delete
+    handler: backend/handlers/bookings.deleteBooking
     events:
       - http:
           path: /bookings/{id}
