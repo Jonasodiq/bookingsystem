@@ -1,0 +1,90 @@
+service: bookingsystem-api
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}'
+
+functions:
+  # Exempel: Hämta alla bokningar
+  getBookings:
+    handler: backend/handlers/bookings.getAll
+    events:
+      - http:
+          path: /bookings
+          method: get
+          cors: true
+
+  # Exempel: Skapa ny bokning
+  createBooking:
+    handler: backend/handlers/bookings.create
+    events:
+      - http:
+          path: /bookings
+          method: post
+          cors: true
+
+  # Exempel: Hämta en specifik bokning
+  getBooking:
+    handler: backend/handlers/bookings.getOne
+    events:
+      - http:
+          path: /bookings/{id}
+          method: get
+          cors: true
+
+  # Exempel: Uppdatera bokning
+  updateBooking:
+    handler: backend/handlers/bookings.update
+    events:
+      - http:
+          path: /bookings/{id}
+          method: put
+          cors: true
+
+  # Exempel: Ta bort bokning
+  deleteBooking:
+    handler: backend/handlers/bookings.delete
+    events:
+      - http:
+          path: /bookings/{id}
+          method: delete
+          cors: true
+
+resources:
+  Resources:
+    BookingsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: UserIdIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST

@@ -66,12 +66,12 @@ Målet är att leverera en fungerande MVP (Minimum Viable Product) av ett boknin
 
 | Vecka | Fokus                                                                                       |
 | ----- | ------------------------------------------------------------------------------------------- |
-| 1     | Projektsetup: Next.js 16, MongoDB Atlas, Mongoose-scheman, auth med roller, GitHub Projects |
+| 1     | Projektsetup: Vite + React, React Router, Firebase Auth, AWS Lambda + DynamoDB, Serverless Framework, GitHub Projects |
 | 2     | Adminsida: CRUD för tjänster, hantera personal och öppettider                               |
 | 3     | Personalsida: eget schema, se sina bokningar                                                |
 | 4     | Kundsida: bokningsflöde (välj tjänst → personal → datum/tid → bekräfta)                     |
 | 5     | Kalendervy, dubbelbokningsskydd, responsiv design                                           |
-| 6     | Polish, bugfixar, deploy till Vercel, förbereda presentation                                |
+| 6     | Polish, bugfixar, deploy frontend till Netlify + backend till AWS Lambda, förbereda presentation                                |
 
 ### Arbetssätt
 
@@ -84,18 +84,22 @@ Målet är att leverera en fungerande MVP (Minimum Viable Product) av ett boknin
 
 | Område            | Teknik                                                             |
 | ----------------- | ------------------------------------------------------------------ |
-| Frontend          | Next.js 16 (App Router)                                            |
-| Styling           | Tailwind CSS + shadcn/ui (komponentbibliotek, installeras via CLI) |
-| Autentisering     | Auth.js / next-auth v5 (med rollhantering)                         |
-| Backend/API       | Next.js Route Handlers (app/api/)                                  |
-| Databas           | MongoDB Atlas (via Mongoose)                                       |
-| Deploy            | Vercel                                                             |
+| Frontend          | Vite + React 19                                                    |
+| Routing           | React Router v7                                                    |
+| Styling           | Tailwind CSS v4                                                    |
+| Autentisering     | Firebase Auth (med rollhantering)                                  |
+| Backend/API       | AWS Lambda + API Gateway (Serverless Framework)                    |
+| Databas           | AWS DynamoDB                                                       |
+| Deploy            | Netlify (frontend) + AWS Lambda (backend)                          |
 | Versionshantering | Git + GitHub                                                       |
 
 **Motivering:**
 
-- **Next.js 16** valdes för att det är det ledande React-ramverket med inbyggd routing, SSR och Route Handlers (API) — perfekt för en fullstack-app i ett projekt. App Router ger modern React-arkitektur med server- och klientkomponenter.
-- **Auth.js (next-auth v5)** valdes för smidig autentisering med inbyggt stöd för Next.js App Router och rollhantering via sessions/JWT.
-- **MongoDB Atlas** valdes för att det är en flexibel NoSQL-databas som körs i molnet (på AWS-infrastruktur) med generös gratistier. Mongoose används som ODM (Object Data Modeling) för att definiera tydliga scheman för bokningar, kunder, tjänster och personal.
-- **Tailwind CSS + shadcn/ui** ger snabb och konsekvent styling utan att behöva bygga alla komponenter från grunden. shadcn/ui installeras via CLI (`npx shadcn@latest init`) och ger tillgång till tillgängliga, anpassningsbara React-komponenter.
+- **Vite + React 19** valdes för snabb utvecklingsmiljö med HMR (Hot Module Replacement) och modern build-process. Vite är extremt snabbt och lättarbetat för SPA-utveckling.
+- **React Router v7** är den mest använda routing-lösningen för React med stöd för klient-routing, nested routes och modern data-fetch patterns.
+- **Firebase Auth** ger färdig autentisering med stöd för email/password, social login och rollhantering via custom claims. Enkel integration med React.
+- **AWS Lambda + API Gateway** ger serverless backend utan att behöva hantera servrar. Betal-per-användning och automatisk skalning. Serverless Framework förenklar deployment och infrastrukturhantering.
+- **AWS DynamoDB** är en snabb NoSQL-databas med flexibelt schema, perfekt för bokningssystem. Generell gratistier och pay-per-request pricing.
+- **Tailwind CSS v4** ger snabb och konsekvent styling med utility-first approach. Ny CSS-baserad konfiguration gör setup enklare.
+- **Netlify** är perfekt för att deploya Vite-appar med automatisk CI/CD, gratis HTTPS och global CDN.
 - **Vercel** är skapat av samma team som Next.js och ger den smidigaste deploy-upplevelsen med stöd för miljövariabler och automatisk CI/CD vid push.
