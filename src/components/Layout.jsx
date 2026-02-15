@@ -1,10 +1,18 @@
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Layout({ children }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const isActive = (path) => {
     return location.pathname === path;
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
   };
 
   return (
@@ -16,7 +24,7 @@ export default function Layout({ children }) {
               Bokningssystem
             </Link>
 
-            <div className="flex gap-6">
+            <div className="flex gap-6 items-center">
               <Link
                 to="/"
                 className={`${
@@ -38,15 +46,50 @@ export default function Layout({ children }) {
                 Mina bokningar
               </Link>
               <Link
-                to="/login"
+                to="/admin"
                 className={`${
-                  isActive('/login')
+                  isActive('/admin')
                     ? 'text-indigo-600 font-semibold'
                     : 'text-gray-600 hover:text-gray-900'
                 } transition`}
               >
-                Logga in
+                Admin
               </Link>
+              <Link
+                to="/staff"
+                className={`${
+                  isActive('/staff')
+                    ? 'text-indigo-600 font-semibold'
+                    : 'text-gray-600 hover:text-gray-900'
+                } transition`}
+              >
+                Personal
+              </Link>
+              
+              {user ? (
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600">
+                    {user.email}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="text-gray-600 hover:text-gray-900 transition"
+                  >
+                    Logga ut
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className={`${
+                    isActive('/login')
+                      ? 'text-indigo-600 font-semibold'
+                      : 'text-gray-600 hover:text-gray-900'
+                  } transition`}
+                >
+                  Logga in
+                </Link>
+              )}
             </div>
           </div>
         </div>

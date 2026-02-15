@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '../config/aws';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showNewBooking, setShowNewBooking] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchBookings();
@@ -25,22 +27,36 @@ export default function BookingsPage() {
   const handleCreateBooking = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    
+
     try {
       const newBooking = await apiClient.post('/bookings', {
-        userId: 'user123', // TODO: Get from Firebase Auth
+        userId: user?.uid || 'anonymous',
         service: formData.get('service'),
         staffId: formData.get('staffId'),
         date: formData.get('date'),
         time: formData.get('time'),
       });
-      
+
       setBookings([...bookings, newBooking]);
       setShowNewBooking(false);
       e.target.reset();
     } catch (error) {
       console.error('Failed to create booking:', error);
       alert('Kunde inte skapa bokning');
+    }
+  };
+
+  const handleDeleteBooking = async (bookingId) => {
+    if (!window.confirm('Är du säker på att du vill avboka denna tid?')) {
+      return;
+    }
+
+    try {
+      await apiClient.delete(`/bookings/${bookingId}`);
+      setBookings(bookings.filter((b) => b.id !== bookingId));
+    } catch (error) {
+      console.error('Failed to delete booking:', error);
+      alert('Kunde inte avboka');
     }
   };
 
@@ -169,14 +185,18 @@ export default function BookingsPage() {
                       📅 {booking.date} kl. {booking.time}
                     </p>
                     <p className="text-gray-500 text-sm mt-1">
-                      Bokad: {new Date(booking.createdAt).toLocaleDateString('sv-SE')}
+                      Bokad:{' '}
+                      {new Date(booking.createdAt).toLocaleDateString('sv-SE')}
                     </p>
                   </div>
                   <div className="flex gap-2">
                     <button className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
                       Ändra
                     </button>
-                    <button className="text-red-600 hover:text-red-800 text-sm font-medium">
+                    <button
+                      onClick={() => handleDeleteBooking(booking.id)}
+                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                    >
                       Avboka
                     </button>
                   </div>

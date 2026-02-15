@@ -11,7 +11,7 @@ export default function HomePage() {
           <p className="text-xl text-gray-600 mb-8">
             Boka tid hos din frisör snabbt och enkelt
           </p>
-          
+
           <div className="flex gap-4 justify-center">
             <Link
               to="/bookings"
@@ -36,7 +36,7 @@ export default function HomePage() {
               Se lediga tider i realtid och boka direkt via webben
             </p>
           </div>
-          
+
           <div className="bg-white p-6 rounded-lg shadow-md">
             <div className="text-3xl mb-4">✂️</div>
             <h3 className="text-xl font-semibold mb-2">Välj frisör</h3>
@@ -44,7 +44,7 @@ export default function HomePage() {
               Boka med din favoritfrisör eller välj nästa lediga tid
             </p>
           </div>
-          
+
           <div className="bg-white p-6 rounded-lg shadow-md">
             <div className="text-3xl mb-4">🔔</div>
             <h3 className="text-xl font-semibold mb-2">Hantera bokningar</h3>

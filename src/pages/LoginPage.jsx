@@ -1,14 +1,37 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const { login, signup } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement Firebase Auth
-    console.log('Login:', { email, password });
+    setError('');
+    setLoading(true);
+
+    try {
+      const result = isLogin
+        ? await login(email, password)
+        : await signup(email, password);
+
+      if (result.error) {
+        setError(result.error);
+      } else {
+        navigate('/bookings');
+      }
+    } catch (err) {
+      setError('Ett fel uppstod. Försök igen.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,12 +86,23 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {error && (
+            <div className="rounded-md bg-red-50 p-4">
+              <p className="text-sm text-red-800">{error}</p>
+            </div>
+          )}
+
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled={loading}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400 disabled:cursor-not-allowed"
             >
-              {isLogin ? 'Logga in' : 'Skapa konto'}
+              {loading
+                ? 'Laddar...'
+                : isLogin
+                  ? 'Logga in'
+                  : 'Skapa konto'}
             </button>
           </div>
         </form>
